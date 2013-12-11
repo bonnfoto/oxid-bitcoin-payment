@@ -19,6 +19,8 @@
  * @copyright   Copyright (c) 2013 CommerceCoding (http://www.commerce-coding.de)
  * @author      Alexander Diebler
  * @license     http://opensource.org/licenses/GPL-3.0  GNU General Public License, version 3 (GPL-3.0)
+ * 
+ * MTGox.com API V2 (Edit: Heinz Schumacher)
  */
 
 /**
@@ -109,9 +111,9 @@ class cc_bitcoin_exchange_rate_updater
     protected function _updateViaMtGox()
     {
         foreach ($this->_aCurrencies as $sCurrency) {
-            $sJson = file_get_contents('http://data.mtgox.com/api/1/BTC' . $sCurrency . '/ticker');
+            $sJson = file_get_contents('https://data.mtgox.com/api/2/BTC' . $sCurrency . '/money/ticker');
             $oJson = json_decode($sJson);
-            $this->_oxConfig->saveShopConfVar('str', 'ccBitcoin' . $sCurrency, $oJson->return->avg->value, $this->_sShopId, $this->_sModule);
+            $this->_oxConfig->saveShopConfVar('str', 'ccBitcoin' . $sCurrency, $oJson->data->avg->value, $this->_sShopId, $this->_sModule);
         }
     }
 }
